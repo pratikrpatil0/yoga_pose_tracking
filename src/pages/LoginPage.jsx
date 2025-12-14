@@ -1,43 +1,20 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import YogaLoader from '../components/YogaLoader';
-import { useYogaLoader } from '../hooks/useYogaLoader';
+import { useNavigate, Link } from 'react-router-dom';
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState('');
-  const { login, register } = useAuth();
-  const { isLoading, showLoader, hideLoader } = useYogaLoader();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      showLoader(isLogin ? 'Signing you in...' : 'Creating your account...');
-      
-      let success = false;
-      if (isLogin) {
-        success = await login(email, password);
-      } else {
-        success = await register(email, password, name);
-      }
-
-      hideLoader();
-
-      if (success) {
-        showLoader('Welcome! Preparing your dashboard...', 1500);
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 1500);
-      } else {
-        setError(isLogin ? 'Invalid email or password' : 'Registration failed');
-      }
+      navigate("/sessions");
     } catch (err) {
       hideLoader();
       setError('An error occurred. Please try again.');
@@ -51,13 +28,6 @@ const LoginPage: React.FC = () => {
 
   return (
     <>
-      {isLoading && (
-        <YogaLoader 
-          message="Finding your zen..." 
-          type="breathing" 
-          size="medium" 
-        />
-      )}
       <div className="login-page">
         <div className="login-container">
         <div className="login-card">
@@ -117,13 +87,11 @@ const LoginPage: React.FC = () => {
 
             <button
               type="submit"
-              disabled={isLoading}
+            //   disabled={isLoading}
               className="btn btn-primary btn-full"
             >
-              {isLoading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
+              {(isLogin ? 'Sign In' : 'Create Account')}
             </button>
-
-            {isLogin && (
               <button
                 type="button"
                 onClick={fillDemoCredentials}
@@ -131,7 +99,6 @@ const LoginPage: React.FC = () => {
               >
                 Try Demo Account
               </button>
-            )}
           </form>
 
           <div className="login-footer">

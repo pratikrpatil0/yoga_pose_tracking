@@ -1,18 +1,14 @@
-import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 
-const Navigation: React.FC = () => {
-  const { user, logout } = useAuth();
+const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
     navigate('/');
   };
 
-  const isActive = (path: string) => {
+  const isActive = (path) => {
     return location.pathname === path ? 'nav-link active' : 'nav-link';
   };
 
@@ -24,31 +20,17 @@ const Navigation: React.FC = () => {
         </Link>
         
         <div className="nav-menu">
-          {user ? (
-            <>
-              <Link to="/dashboard" className={isActive('/dashboard')}>
-                Dashboard
-              </Link>
-              <Link to="/library" className={isActive('/library')}>
-                Library
-              </Link>
-              <Link to="/profile" className={isActive('/profile')}>
-                Profile
-              </Link>
-              <button onClick={handleLogout} className="btn btn-outline">
-                Logout
-              </button>
-            </>
-          ) : (
             <>
               <Link to="/" className={isActive('/')}>
                 Home
+              </Link>
+              <Link to="/sessions" className={isActive('/sessions')}>
+                Library
               </Link>
               <Link to="/login" className="btn btn-primary">
                 Login
               </Link>
             </>
-          )}
         </div>
       </div>
     </nav>

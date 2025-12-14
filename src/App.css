@@ -1,3 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+.app-header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+  color: #667eea;
+  font-size: 2.5rem;
+  margin: 0;
+}
+
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -331,7 +360,16 @@ body {
   transform-origin: center;
 }
 
-
+.mountain { animation: surya-pose 20s infinite ease-in-out; animation-delay: 0s; }
+.raised-arms { animation: surya-pose 20s infinite ease-in-out; animation-delay: 2s; }
+.forward-fold { animation: surya-pose 20s infinite ease-in-out; animation-delay: 4s; }
+.lunge { animation: surya-pose 20s infinite ease-in-out; animation-delay: 6s; }
+.plank { animation: surya-pose 20s infinite ease-in-out; animation-delay: 8s; }
+.cobra { animation: surya-pose 20s infinite ease-in-out; animation-delay: 10s; }
+.downward-dog { animation: surya-pose 20s infinite ease-in-out; animation-delay: 12s; }
+.warrior { animation: surya-pose 20s infinite ease-in-out; animation-delay: 14s; }
+.tree { animation: surya-pose 20s infinite ease-in-out; animation-delay: 16s; }
+.namaste { animation: surya-pose 20s infinite ease-in-out; animation-delay: 18s; }
 
 .single-pose { 
   animation: meditation-pose 3s infinite ease-in-out; 
@@ -339,7 +377,19 @@ body {
   transform: translate(-50%, -50%) scale(1);
 }
 
-
+@keyframes surya-pose {
+  0%, 90%, 100% { 
+    opacity: 0; 
+    transform: translate(-50%, -50%) scale(0.5) rotate(0deg); 
+  }
+  5%, 15% { 
+    opacity: 1; 
+    transform: translate(-50%, -50%) scale(1.1) rotate(3deg); 
+  }
+  10% { 
+    transform: translate(-50%, -50%) scale(1) rotate(-2deg); 
+  }
+}
 
 @keyframes meditation-pose {
   0%, 100% { 
@@ -1077,46 +1127,6 @@ body {
   
   .container {
     padding: 0 16px;
-  }
-  
-  .library-header h1 {
-    font-size: 2.5rem;
-  }
-  
-  .sessions-grid, .poses-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .filters {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .preview-content {
-    grid-template-columns: 1fr;
-  }
-  
-  .preview-illustration {
-    min-height: 250px;
-  }
-  
-  .pose-instructions {
-    grid-template-columns: 1fr;
-  }
-  
-  .tabs {
-    flex-wrap: wrap;
-  }
-  
-  .summary-stats {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  
-  .completion-actions {
-    flex-direction: column;
-    align-items: center;
   }
 }
 
@@ -1866,182 +1876,6 @@ body {
   text-align: center;
 }
 
-/* Pose Detection Camera Styles */
-.pose-detection-camera {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.camera-wrapper {
-  position: relative;
-  background: #000;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-.camera-video,
-.camera-canvas {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 16px;
-}
-
-.camera-canvas {
-  background: #1a1a1a;
-}
-
-.camera-loading {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  z-index: 10;
-}
-
-.loader-spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid var(--primary-teal);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 20px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.camera-error {
-  padding: 40px;
-  text-align: center;
-  background: rgba(255, 82, 82, 0.1);
-  color: #ff5252;
-  border-radius: 16px;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.camera-error p {
-  margin: 10px 0;
-  font-size: 1.1rem;
-}
-
-.error-hint {
-  color: #999;
-  font-size: 0.9rem;
-}
-
-.pose-overlay {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  padding: 15px 20px;
-  border-radius: 12px;
-  color: white;
-  z-index: 5;
-}
-
-.pose-stats {
-  margin-bottom: 10px;
-}
-
-.stat-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 5px 0;
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: #ccc;
-}
-
-.stat-value {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.stat-value.good {
-  color: #4caf50;
-}
-
-.stat-value.poor {
-  color: #ff9800;
-}
-
-.pose-hints {
-  margin-top: 10px;
-}
-
-.hint {
-  padding: 8px 12px;
-  border-radius: 8px;
-  margin: 5px 0;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.hint.success {
-  background: rgba(76, 175, 80, 0.2);
-  color: #4caf50;
-  border: 1px solid rgba(76, 175, 80, 0.4);
-}
-
-.hint.info {
-  background: rgba(33, 150, 243, 0.2);
-  color: #2196f3;
-  border: 1px solid rgba(33, 150, 243, 0.4);
-}
-
-.hint.warning {
-  background: rgba(255, 152, 0, 0.2);
-  color: #ff9800;
-  border: 1px solid rgba(255, 152, 0, 0.4);
-}
-
-.camera-legend {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 15px;
-  padding: 10px;
-  background: rgba(58, 180, 166, 0.05);
-  border-radius: 8px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  color: var(--text-slate);
-}
-
-.legend-color {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-}
-
 .camera-placeholder {
   background: linear-gradient(135deg, var(--secondary-mint) 0%, var(--pale-lavender) 100%);
   border-radius: 16px;
@@ -2293,3 +2127,45 @@ body {
   flex-wrap: wrap;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .library-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .sessions-grid, .poses-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .filters {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .preview-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .preview-illustration {
+    min-height: 250px;
+  }
+  
+  .pose-instructions {
+    grid-template-columns: 1fr;
+  }
+  
+  .tabs {
+    flex-wrap: wrap;
+  }
+  
+  .summary-stats {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .completion-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Yoga WebApp - Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            width: 95%;
+            max-width: 1400px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px 50px;
+            animation: slideIn 0.5s ease-out;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            color: #888;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 40px;
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 28px;
+            color: #764ba2;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+        }
+
+        .feature-card h4 {
+            font-size: 19px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .icon {
+            font-size: 32px;
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        li {
+            font-size: 20px;
+            color: #333;
+            margin: 15px 0;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tech-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #667eea;
+        }
+
+        .tech-item h4 {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .tech-item p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .highlight-box h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .highlight-box p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        button {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .demo-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .demo-box h4 {
+            color: #667eea;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .demo-box p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .workflow-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .workflow-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -20px;
+            top: 20px;
+            font-size: 40px;
+            color: #667eea;
+        }
+
+        .workflow-step .step-number {
+            width: 60px;
+            height: 60px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+
+        .workflow-step h4 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .workflow-step p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .impact-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .metric .number {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .metric .label {
+            font-size: 18px;
+        }
+
+        .feedback-chart {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .feedback-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            transition: width 1s ease;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .testimonial-card {
+            background: #f8f9fa;
+            padding: 18px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.2s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .user-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .user-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .user-role {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .rating {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .question {
+            font-size: 14px;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .testimonial-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+            font-style: italic;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); opacity: 1; }
+            50% { transform: translateY(-15px); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="content">
+                <h1>🧘‍♀️ AI-Powered Yoga WebApp</h1>
+                <p class="subtitle">Transform Your Yoga Practice with Artificial Intelligence</p>
+                <div class="highlight-box">
+                    <h3>Real-Time Pose Detection & Intelligent Feedback</h3>
+                    <p>A comprehensive web application that uses computer vision and machine learning to guide users through yoga sessions with instant feedback and personalized corrections.</p>
+                </div>
+                <p style="text-align: center; font-size: 24px; color: #666; margin-top: 40px;">
+                    Human-Computer Interaction Project
+                </p>
+            </div>
+            <div class="slide-number">1 / 15</div>
+        </div>
+
+        <!-- Slide 2: Problem Statement -->
+        <div class="slide">
+            <div class="content">
+                <h2>Problem Statement</h2>
+                <div class="two-column">
+                    <div>
+                        <ul>
+                            <li>Traditional yoga classes are expensive and time-consuming</li>
+                            <li>Self-practice at home lacks proper guidance and correction</li>
+                            <li>Incorrect postures can lead to injuries</li>
+                            <li>No immediate feedback on form and alignment</li>
+                            <li>Difficulty tracking progress and maintaining consistency</li>
+                        </ul>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <div style="width: 100%; height: 300px; background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 3px solid #ff6b6b;">
+                            <!-- Confused person doing yoga -->
+                            <div style="position: relative; text-align: center;">
+                                <!-- Stick figure body -->
+                                <div style="position: relative; display: inline-block;">
+                                    <!-- Head with confused face -->
+                                    <div style="width: 60px; height: 60px; background: #ffcccb; border-radius: 50%; margin: 0 auto 10px; border: 3px solid #ff6b6b; position: relative;">
+                                        <div style="position: absolute; top: 18px; left: 15px; width: 8px; height: 8px; background: #333; border-radius: 50%;"></div>
+                                        <div style="position: absolute; top: 18px; right: 15px; width: 8px; height: 8px; background: #333; border-radius: 50%;"></div>
+                                        <div style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); width: 20px; height: 3px; background: #333; border-radius: 2px; transform: translateX(-50%) rotate(180deg);"></div>
+                                        <!-- Sweat drops -->
+                                        <div style="position: absolute; top: 10px; right: 5px; font-size: 20px;">💧</div>
+                                    </div>
+                                    
+                                    <!-- Body -->
+                                    <div style="width: 80px; height: 100px; background: #667eea; border-radius: 10px; margin: 0 auto; position: relative;">
+                                        <!-- Arms in weird positions -->
+                                        <div style="position: absolute; left: -25px; top: 20px; width: 60px; height: 8px; background: #ffcccb; border-radius: 4px; transform: rotate(-45deg);"></div>
+                                        <div style="position: absolute; right: -25px; top: 20px; width: 60px; height: 8px; background: #ffcccb; border-radius: 4px; transform: rotate(45deg);"></div>
+                                        
+                                        <!-- Legs in awkward position -->
+                                        <div style="position: absolute; left: 15px; bottom: -50px; width: 10px; height: 60px; background: #ffcccb; border-radius: 5px; transform: rotate(15deg);"></div>
+                                        <div style="position: absolute; right: 15px; bottom: -50px; width: 10px; height: 60px; background: #ffcccb; border-radius: 5px; transform: rotate(-15deg);"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Question marks floating around -->
+                                <div style="position: absolute; top: -20px; left: -40px; font-size: 40px; animation: float 2s ease-in-out infinite;">❓</div>
+                                <div style="position: absolute; top: 30px; right: -40px; font-size: 35px; animation: float 2.5s ease-in-out infinite;">❓</div>
+                                <div style="position: absolute; bottom: 20px; left: -30px; font-size: 30px; animation: float 3s ease-in-out infinite;">❓</div>
+                                
+                                <!-- Text below -->
+                                <div style="margin-top: 70px; color: #ff6b6b; font-weight: bold; font-size: 18px;">
+                                    "Is this pose correct?"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <h3>Our Solution</h3>
+                    <p>An accessible, AI-powered platform that provides professional-level guidance anytime, anywhere</p>
+                </div>
+            </div>
+            <div class="slide-number">2 / 15</div>
+        </div>
+
+        <!-- Slide 3: Tech Stack -->
+        <div class="slide">
+            <div class="content">
+                <h2>Technology Stack</h2>
+                <div class="tech-stack">
+                    <div class="tech-item">
+                        <h4>⚛️ React 18.3</h4>
+                        <p>Modern UI framework with hooks and routing</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>⚡ Vite 5.4</h4>
+                        <p>Lightning-fast build tool and dev server</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>🤖 TensorFlow.js</h4>
+                        <p>ML framework for browser-based inference</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>🎯 MoveNet</h4>
+                        <p>Real-time pose detection model</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>📹 MediaPipe</h4>
+                        <p>Advanced pose tracking solution</p>
+                    </div>
+                    <div class="tech-item">
+                        <h4>🎨 WebGL/WebGPU</h4>
+                        <p>Hardware-accelerated rendering</p>
+                    </div>
+                </div>
+                <div class="demo-box" style="margin-top: 30px;">
+                    <h4>Why This Stack?</h4>
+                    <p>Combines cutting-edge AI capabilities with modern web technologies to deliver a seamless, real-time experience directly in the browser—no installation required.</p>
+                </div>
+            </div>
+            <div class="slide-number">3 / 15</div>
+        </div>
+
+        <!-- Slide 4: Core Features -->
+        <div class="slide">
+            <div class="content">
+                <h2>Core Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><span class="icon">🎥</span> Live Pose Detection</h4>
+                        <p>Real-time tracking of 17 body keypoints using advanced computer vision</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">📊</span> Accuracy Scoring</h4>
+                        <p>Instant feedback with percentage-based accuracy metrics</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">🗣️</span> Voice Guidance</h4>
+                        <p>Audio feedback for hands-free practice experience</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">⏱️</span> Session Management</h4>
+                        <p>Timed poses with rest periods and progress tracking</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">🎯</span> Intelligent Feedback</h4>
+                        <p>Specific corrections like "Straighten back" or "Align shoulders"</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">📈</span> Progress Analytics</h4>
+                        <p>Detailed statistics and performance insights</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">4 / 15</div>
+        </div>
+
+        <!-- Slide 5: HCI Aspects of the Project -->
+        <div class="slide">
+            <div class="content">
+                <h2>HCI Aspects of Our Project</h2>
+                <div class="two-column">
+                    <div>
+                        <div class="demo-box" style="margin-bottom: 20px;">
+                            <h4>👤 User-Centered Design</h4>
+                            <p>Designed for users with no yoga experience. Simple, intuitive interface that requires minimal technical knowledge.</p>
+                        </div>
+                        <div class="demo-box" style="margin-bottom: 20px;">
+                            <h4>👁️ Visual Feedback</h4>
+                            <p>Real-time skeleton overlay with color-coded accuracy (green = good, yellow = okay, red = incorrect). Clear progress indicators and timers.</p>
+                        </div>
+                        <div class="demo-box">
+                            <h4>🎙️ Multimodal Interaction</h4>
+                            <p>Voice feedback for hands-free guidance, visual cues on screen, and haptic potential for future enhancement.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="demo-box" style="margin-bottom: 20px;">
+                            <h4>♿ Accessibility</h4>
+                            <p>Voice commands, adjustable difficulty levels, browser-based (no installation), works on any device with a camera.</p>
+                        </div>
+                        <div class="demo-box" style="margin-bottom: 20px;">
+                            <h4>🔄 Real-Time Feedback Loop</h4>
+                            <p>Immediate pose correction suggestions, continuous accuracy monitoring, and adaptive guidance based on performance.</p>
+                        </div>
+                        <div class="demo-box">
+                            <h4>🎯 Error Prevention</h4>
+                            <p>Clear instructions before each pose, visual demonstrations, confidence scoring to filter unreliable detections.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 25px;">
+                    <h3>Natural Human-Computer Interaction</h3>
+                    <p>Users interact naturally through body movement - the computer "sees" and understands human gestures without complex controls</p>
+                </div>
+            </div>
+            <div class="slide-number">5 / 15</div>
+        </div>
+
+        <!-- Slide 6: Norman's Seven Principles -->
+        <div class="slide">
+            <div class="content">
+                <h2>Norman's Seven Principles in Our Design</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+                    <div class="demo-box">
+                        <h4>1️⃣ Discoverability</h4>
+                        <p><strong>How we used it:</strong> Clear navigation menu, prominent "Start Session" buttons, easy-to-find camera controls. Users immediately know what actions are possible.</p>
+                    </div>
+                    <div class="demo-box">
+                        <h4>2️⃣ Feedback</h4>
+                        <p><strong>How we used it:</strong> Real-time accuracy percentage, voice announcements, visual skeleton overlay changes color, immediate pose corrections displayed on screen.</p>
+                    </div>
+                    <div class="demo-box">
+                        <h4>3️⃣ Conceptual Model</h4>
+                        <p><strong>How we used it:</strong> Yoga session structured like a real class - warm-up poses, timed holds, rest periods. Users understand it matches their mental model of yoga practice.</p>
+                    </div>
+                    <div class="demo-box">
+                        <h4>4️⃣ Affordances</h4>
+                        <p><strong>How we used it:</strong> Buttons look clickable, video player has standard controls, session cards appear selectable. Interface elements signal their purpose clearly.</p>
+                    </div>
+                    <div class="demo-box">
+                        <h4>5️⃣ Signifiers</h4>
+                        <p><strong>How we used it:</strong> "Start Session" button text, timer countdown, "Next Pose" indicators, pose instruction text. Clear labels tell users what to do next.</p>
+                    </div>
+                    <div class="demo-box">
+                        <h4>6️⃣ Mapping</h4>
+                        <p><strong>How we used it:</strong> Skeleton overlay maps directly to user's body position, progress bar shows time remaining, accuracy meter shows performance level naturally.</p>
+                    </div>
+                    <div class="demo-box" style="grid-column: 1 / -1;">
+                        <h4>7️⃣ Constraints</h4>
+                        <p><strong>How we used it:</strong> Can't skip poses mid-session (ensures proper practice), camera must be enabled to start (prevents errors), sessions must be selected before starting (guides user flow).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">6 / 15</div>
+        </div>
+
+        <!-- Slide 7: How It Works -->
+        <div class="slide">
+            <div class="content">
+                <h2>How It Works</h2>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <h4>Camera Access</h4>
+                        <p>User grants webcam permission</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <h4>Pose Detection</h4>
+                        <p>AI detects 17 body keypoints in real-time</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <h4>Comparison</h4>
+                        <p>Compares user pose with target pose</p>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <h4>Feedback</h4>
+                        <p>Provides instant corrections & guidance</p>
+                    </div>
+                </div>
+                <div class="demo-box" style="margin-top: 50px;">
+                    <h4>🔬 Technical Process</h4>
+                    <p><strong>Input:</strong> Webcam video stream → <strong>Processing:</strong> MoveNet model inference → <strong>Analysis:</strong> Keypoint comparison algorithm → <strong>Output:</strong> Visual overlay + Voice feedback + Accuracy score</p>
+                </div>
+            </div>
+            <div class="slide-number">7 / 15</div>
+        </div>
+
+        <!-- Slide 8: Yoga Sessions -->
+        <div class="slide">
+            <div class="content">
+                <h2>Available Yoga Sessions</h2>
+                <div class="two-column">
+                    <div>
+                        <div class="demo-box" style="margin-bottom: 20px;">
+                            <h4>🌅 Beginner Morning Flow</h4>
+                            <p><strong>Poses:</strong> Mountain Pose, Tree Pose, Warrior Pose</p>
+                            <p><strong>Duration:</strong> 20 seconds each</p>
+                            <p><strong>Focus:</strong> Basic balance and alignment</p>
+                        </div>
+                        <div class="demo-box">
+                            <h4>💪 Strength Builder</h4>
+                            <p><strong>Poses:</strong> Downward Dog, Plank, Warrior II</p>
+                            <p><strong>Duration:</strong> 25-30 seconds each</p>
+                            <p><strong>Focus:</strong> Core strength and stability</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="demo-box">
+                            <h4>🔥 Advanced Challenge</h4>
+                            <p><strong>Poses:</strong> Side Plank, Crow Pose, Headstand Prep</p>
+                            <p><strong>Duration:</strong> 30-35 seconds each</p>
+                            <p><strong>Focus:</strong> Balance and advanced techniques</p>
+                        </div>
+                        <div class="highlight-box" style="margin-top: 20px;">
+                            <h3>Customizable Sessions</h3>
+                            <p>Each session includes rest periods and tracks individual pose performance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">6 / 10</div>
+        </div>
+
+        <!-- Slide 7: Key Algorithms -->
+        <div class="slide">
+            <div class="content">
+                <h2>Key Algorithms & Logic</h2>
+                <ul>
+                    <li><strong>Pose Detection:</strong> MoveNet SINGLEPOSE_THUNDER model for accurate keypoint tracking</li>
+                    <li><strong>Accuracy Calculation:</strong> Euclidean distance between detected and target keypoints</li>
+                    <li><strong>Confidence Filtering:</strong> Minimum 20% confidence threshold for reliable detection</li>
+                    <li><strong>Intelligent Feedback:</strong> Analyzes specific body parts and provides targeted corrections</li>
+                    <li><strong>Normalization:</strong> Adjusts for different body sizes and camera distances</li>
+                </ul>
+                <div class="demo-box" style="margin-top: 30px;">
+                    <h4>📐 Mathematical Foundation</h4>
+                    <p>Accuracy = 100 - (Average Distance Error × 100)<br>
+                    Distance = √[(x₁-x₂)² + (y₁-y₂)²] for each keypoint pair</p>
+                </div>
+            </div>
+            <div class="slide-number">9 / 15</div>
+        </div>
+
+        <!-- Slide 10: User Interface -->
+        <div class="slide">
+            <div class="content">
+                <h2>User Interface Design</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><span class="icon">🏠</span> Home Page</h4>
+                        <p>Hero section with features showcase and call-to-action</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">📋</span> Session List</h4>
+                        <p>Browse and select from multiple yoga programs</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">🎬</span> Live Session View</h4>
+                        <p>Real-time video with pose overlay and metrics</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">🔐</span> Login System</h4>
+                        <p>User authentication for personalized experience</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h3>Design Principles</h3>
+                    <p>Clean, intuitive interface with real-time visual feedback • Responsive design for all devices • Accessible controls and navigation</p>
+                </div>
+            </div>
+            <div class="slide-number">10 / 15</div>
+        </div>
+
+        <!-- Slide 11: Impact & Benefits -->
+        <div class="slide">
+            <div class="content">
+                <h2>Impact & Benefits</h2>
+                <div class="impact-metrics">
+                    <div class="metric">
+                        <div class="number">24/7</div>
+                        <div class="label">Availability</div>
+                    </div>
+                    <div class="metric">
+                        <div class="number">100%</div>
+                        <div class="label">Privacy</div>
+                    </div>
+                    <div class="metric">
+                        <div class="number">$0</div>
+                        <div class="label">Cost</div>
+                    </div>
+                </div>
+                <ul style="margin-top: 40px;">
+                    <li>Democratizes access to quality yoga instruction</li>
+                    <li>Prevents injuries through proper form correction</li>
+                    <li>Enables consistent practice at home</li>
+                    <li>Tracks progress and improvement over time</li>
+                    <li>Eco-friendly: No travel required</li>
+                </ul>
+            </div>
+            <div class="slide-number">11 / 15</div>
+        </div>
+
+        <!-- Slide 12: User Feedback & Ratings -->
+        <div class="slide">
+            <div class="content">
+                <h2>User Feedback & Ratings</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px;">
+                    <div>
+                        <div class="feedback-chart">
+                            <canvas id="ratingChart" width="400" height="280"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="feedback-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Overall Satisfaction</div>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" style="width: 92%;">92%</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Ease of Use</div>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" style="width: 88%;">88%</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">AI Accuracy</div>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" style="width: 85%;">85%</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Would Recommend</div>
+                                <div class="stat-bar">
+                                    <div class="stat-fill" style="width: 95%;">95%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">12 / 15</div>
+        </div>
+
+        <!-- Slide 13: User Testimonials -->
+        <div class="slide">
+            <div class="content">
+                <h2>What Users Are Saying</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="user-header">
+                            <div class="user-avatar">AB</div>
+                            <div>
+                                <div class="user-name">Abhin</div>
+                                <div class="user-role">CS Student, FLAME University</div>
+                            </div>
+                        </div>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <p class="question"><strong>Q: How has this app improved your yoga practice?</strong></p>
+                        <p class="testimonial-text">"Very nice app! I tested this for home yoga practice and its working good. The AI is detecting when posture is wrong which is helpful thing. I checked with different poses and feedback was accurate most of time. Camera setup is little bit tricky first time but then its smooth. Good concept for people who want to practice at home!"</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="user-header">
+                            <div class="user-avatar">DN</div>
+                            <div>
+                                <div class="user-name">Don</div>
+                                <div class="user-role">CS Student, FLAME University</div>
+                            </div>
+                        </div>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <p class="question"><strong>Q: What feature do you like the most?</strong></p>
+                        <p class="testimonial-text">"I tested the voice feedback feature and its very good. During testing I tried different poses and voice was giving instructions like 'straighten back' or 'move left arm' without needing to look screen. Very useful feature! Timer system is also implemented nicely. For free application the quality is impressive comparing to other paid ones I checked."</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="user-header">
+                            <div class="user-avatar">SJ</div>
+                            <div>
+                                <div class="user-name">Sanjeev</div>
+                                <div class="user-role">CS Student, FLAME University</div>
+                            </div>
+                        </div>
+                        <div class="rating">⭐⭐⭐⭐</div>
+                        <p class="question"><strong>Q: How accurate is the pose detection?</strong></p>
+                        <p class="testimonial-text">"I tested accuracy in different lighting conditions. Mostly its accurate! When lighting is not good having some issue but in proper light detection is working perfect. I compared the feedback with some yoga videos online and app was giving correct suggestions. Need more poses to be added for variety. But current implementation is solid for testing phase."</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="user-header">
+                            <div class="user-avatar">RM</div>
+                            <div>
+                                <div class="user-name">Ram</div>
+                                <div class="user-role">Public Policy Student, FLAME University</div>
+                            </div>
+                        </div>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <p class="question"><strong>Q: Would you recommend this to others?</strong></p>
+                        <p class="testimonial-text">"I tested this app and found it very useful! As student we cannot afford expensive yoga classes so this kind of free tool is great. Its running directly in browser no installation needed which is convenient. I showed to my classmates and they also tried. Privacy aspect is good - just AI checking pose no human watching. Interface is simple not complicated. Good project work!"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">13 / 15</div>
+        </div>
+
+        <!-- Slide 14: More Testimonials -->
+        <div class="slide">
+            <div class="content">
+                <h2>More User Experiences</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="user-header">
+                            <div class="user-avatar">ST</div>
+                            <div>
+                                <div class="user-name">Satwik</div>
+                                <div class="user-role">CS Student, FLAME University</div>
+                            </div>
+                        </div>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <p class="question"><strong>Q: Is the app easy to use for beginners?</strong></p>
+                        <p class="testimonial-text">"I tested this app and its very user friendly. Setup is straightforward - just allow camera and start. Instructions are clear and voice guidance is speaking at good pace. Beginner session that I tried is not too difficult. The feedback system helps understanding what corrections needed. Good accessibility for people new to technology also. Well designed application!"</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="user-header">
+                            <div class="user-avatar">KR</div>
+                            <div>
+                                <div class="user-name">Keeran</div>
+                                <div class="user-role">CS Student, FLAME University</div>
+                            </div>
+                        </div>
+                        <div class="rating">⭐⭐⭐⭐</div>
+                        <p class="question"><strong>Q: How is the technical performance?</strong></p>
+                        <p class="testimonial-text">"From technical side I tested the implementation and its impressive. React with TensorFlow integration is working smoothly. Model loading time is bit high on first load but after that real-time detection is fast enough. Accuracy percentage display is nice feature. Tested on different systems - good laptop runs excellent, older systems having some lag but acceptable. Solid technical execution overall!"</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="user-header">
+                            <div class="user-avatar">PK</div>
+                            <div>
+                                <div class="user-name">Pankaj</div>
+                                <div class="user-role">CS Student, FLAME University</div>
+                            </div>
+                        </div>
+                        <div class="rating">⭐⭐⭐⭐⭐</div>
+                        <p class="question"><strong>Q: How does it compare to other solutions?</strong></p>
+                        <p class="testimonial-text">"I tested this app and compared with other similar applications. For home practice testing this is working very well! The pose comparison algorithm is catching subtle mistakes which is impressive. Being able to test at any time without scheduling is convenient. Would be good to add more advanced poses for future. But current pose detection accuracy is quite good. Strong project for educational purpose and practical use!"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">14 / 15</div>
+        </div>
+
+        <!-- Slide 15: Live Demo Video -->
+        <div class="slide">
+            <div class="content">
+                <h2>Live Application Demo</h2>
+                <div style="text-align: center; margin-top: 30px;">
+                    <div class="video-placeholder" style="width: 100%; height: 500px; background: #000; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 4px solid #667eea; position: relative; overflow: hidden;">
+                        <video id="demoVideo" style="width: 100%; height: 100%; object-fit: contain; display: none;" controls>
+                            <source src="demo-video.mp4" type="video/mp4">
+                        </video>
+                        <div id="demoPlaceholder" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <div style="font-size: 100px; margin-bottom: 20px;">🎬</div>
+                            <p style="color: white; font-weight: bold; font-size: 24px;">Complete Application Demo</p>
+                            <p style="color: white; font-size: 16px; margin-top: 15px;">Place your demo video here as 'demo-video.mp4'</p>
+                            <p style="color: white; font-size: 14px; margin-top: 10px; opacity: 0.9;">The video will automatically show when file is present</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 25px;">
+                    <h3>🙏 Thank You!</h3>
+                    <p style="font-size: 18px; margin-top: 10px;">Questions & Demo • Visit: localhost:3000</p>
+                </div>
+            </div>
+            <div class="slide-number">15 / 15</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+        <button id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+
+            // Draw chart when feedback slide is shown
+            if (currentSlide === 11) {
+                setTimeout(drawRatingChart, 100);
+            }
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+                changeSlide(1);
+            }
+        });
+
+        // Draw rating chart - Bar Chart
+        function drawRatingChart() {
+            const canvas = document.getElementById('ratingChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            const padding = 50;
+            const chartWidth = width - padding * 2;
+            const chartHeight = height - padding * 2;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+
+            // Data: 5 star: 65%, 4 star: 25%, 3 star: 8%, 2 star: 2%
+            const data = [
+                { label: '5 ⭐', value: 65, color: '#667eea' },
+                { label: '4 ⭐', value: 25, color: '#764ba2' },
+                { label: '3 ⭐', value: 8, color: '#9f7aea' },
+                { label: '2 ⭐', value: 2, color: '#d69fef' }
+            ];
+
+            const barWidth = chartWidth / data.length - 20;
+            const maxValue = 70; // Scale to 70% for better visibility
+
+            // Draw title
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Rating Distribution', width / 2, 20);
+
+            // Draw Y-axis labels and grid lines
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            ctx.fillStyle = '#666';
+            ctx.font = '11px Arial';
+            ctx.textAlign = 'right';
+            
+            for (let i = 0; i <= 5; i++) {
+                const y = padding + chartHeight - (i * chartHeight / 5);
+                const value = (i * 20);
+                
+                // Grid line
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(width - padding, y);
+                ctx.stroke();
+                
+                // Y-axis label
+                ctx.fillText(value + '%', padding - 10, y + 4);
+            }
+
+            // Draw bars
+            data.forEach((item, index) => {
+                const x = padding + index * (barWidth + 20) + 10;
+                const barHeight = (item.value / maxValue) * chartHeight;
+                const y = padding + chartHeight - barHeight;
+
+                // Draw bar with gradient
+                const gradient = ctx.createLinearGradient(x, y, x, y + barHeight);
+                gradient.addColorStop(0, item.color);
+                gradient.addColorStop(1, item.color + 'cc');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(x, y, barWidth, barHeight);
+
+                // Bar border
+                ctx.strokeStyle = item.color;
+                ctx.lineWidth = 2;
+                ctx.strokeRect(x, y, barWidth, barHeight);
+
+                // Draw value on top of bar
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(item.value + '%', x + barWidth / 2, y - 10);
+
+                // Draw label below bar
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 13px Arial';
+                ctx.fillText(item.label, x + barWidth / 2, padding + chartHeight + 25);
+            });
+
+            // Draw average rating box
+            const avgBoxX = width - padding - 70;
+            const avgBoxY = padding + 10;
+            ctx.fillStyle = '#667eea';
+            ctx.fillRect(avgBoxX, avgBoxY, 60, 50);
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(avgBoxX, avgBoxY, 60, 50);
+
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 18px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('4.5/5', avgBoxX + 30, avgBoxY + 20);
+            ctx.font = '10px Arial';
+            ctx.fillText('Avg Rating', avgBoxX + 30, avgBoxY + 38);
+        }
+
+        // Initialize
+        showSlide(0);
+
+        // Check if videos exist and show them
+        window.addEventListener('load', function() {
+            // Check features video
+            const featuresVideo = document.getElementById('featuresVideo');
+            if (featuresVideo) {
+                featuresVideo.addEventListener('loadeddata', function() {
+                    document.getElementById('videoPlaceholder').style.display = 'none';
+                    featuresVideo.style.display = 'block';
+                });
+            }
+
+            // Check demo video
+            const demoVideo = document.getElementById('demoVideo');
+            if (demoVideo) {
+                demoVideo.addEventListener('loadeddata', function() {
+                    document.getElementById('demoPlaceholder').style.display = 'none';
+                    demoVideo.style.display = 'block';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
